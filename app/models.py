@@ -43,7 +43,7 @@ class User(UserMixin, db.Model):
 
         user = {
             'key': user_key,
-            'email': self.email,
+            'email': user_key,
             "custom": {
                 'account_type': self.account_type,
                 'user_type': self.user_type,

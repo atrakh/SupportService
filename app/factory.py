@@ -8,6 +8,7 @@ from flask_caching import Cache
 from flask_login import LoginManager
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
+from flask_cors import CORS 
 
 from app.config import config
 from app.util import getLdMachineUser
@@ -18,6 +19,7 @@ migrate = Migrate()
 bootstrap =  Bootstrap()
 login = LoginManager()
 cache = Cache(config={'CACHE_TYPE': 'redis'})
+cors = CORS()
 
 # Operational Feature Flags
 CACHE_TIMEOUT = lambda : ldclient.get().variation('cache-timeout', getLdMachineUser(), 50)
@@ -44,6 +46,7 @@ def create_app(config_name):
     migrate.init_app(app, db)
     cache.init_app(app)
     login.init_app(app)
+    cors.init_app(app)
     login.login_view = 'core.login'
     from app.models import AnonymousUser
     login.anonymous_user = AnonymousUser

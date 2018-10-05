@@ -64,15 +64,19 @@ def darkTheme():
 
 @core.route('/experiments')
 def experiments():
+    user = current_user.get_ld_user(random=True)
+    all_flags = json.dumps(ldclient.get().all_flags(user))
+
     theme = request.args.get("theme")
     if theme:
         updateTheme(theme)
     
     set_theme = '{0}/exp.html'.format(current_user.set_path)
 
-    show_exp = ldclient.get().variation('show-nps-survery', current_user.get_ld_user(True), False)
-  
-    return render_template(set_theme, title='Experiments', show_exp=show_exp)
+    show_exp = ldclient.get().variation('show-nps-survery', user, False)
+    LD_FRONTEND_KEY = current_app.config["LD_FRONTEND_KEY"]
+    
+    return render_template(set_theme, title='Experiments', show_exp=show_exp, all_flags=all_flags, LD_FRONTEND_KEY=LD_FRONTEND_KEY, user=user)
 
 @core.route('/operational')
 def operational():
