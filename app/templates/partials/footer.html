@@ -17,7 +17,7 @@
     <script src="{{ url_for('static', filename='light/dist/js/sb-admin-2.js') }}"></script>
    <script>
 
-       document.getElementById("clickGoal").onclick = ldclient.track("chart-click");
+       //document.getElementById("clickGoal").onclick = ldclient.track("chart-click");
 
        // Show Widgets Code
        var displayWidget = document.getElementById('widgets');
@@ -80,6 +80,20 @@
            renderButton();
            renderChatbox();
        });
+
+       // LD Track NPS Event (experimentation)
+       
+    //    document.getElementById("trackExp").onclick = ldclient.track("nps-completed");
+    //    document.getElementById("trackExp").addEventListener("click", ldTrack);
+        
+    //     function ldTrack() {
+    //         alert ("Hello World!");
+    //     }
+        var expButton = document.getElementById("trackExp");
+        console.log("Testing +" + expButton);
+
+        
+        //document.getElementById("trackExp").onclick = ldclient.track("nps-completed");
 
    </script>
 {% endblock %}  

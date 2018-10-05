@@ -69,8 +69,10 @@ def experiments():
         updateTheme(theme)
     
     set_theme = '{0}/exp.html'.format(current_user.set_path)
+
+    show_exp = ldclient.get().variation('show-nps-survery', current_user.get_ld_user(True), False)
   
-    return render_template(set_theme, title='Experiments')
+    return render_template(set_theme, title='Experiments', show_exp=show_exp)
 
 @core.route('/operational')
 def operational():
@@ -91,6 +93,11 @@ def release():
     set_theme = '{0}/release.html'.format(current_user.set_path)
 
     return render_template(set_theme, title='Dark Theme')
+
+@core.route('/npsComplete')
+def npsComplete():
+
+    return ldclient.get().track("nps-completed", current_user.get_ld_user())
 
 @core.route('/entitlement')
 def entitlement():
